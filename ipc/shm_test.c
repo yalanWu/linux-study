@@ -2,6 +2,7 @@
 *
 *父子进程利用共享内存通信
 *用管道实现父子进程的互斥
+* gcc -o shm_test shm_tell.c shm_test.c
 */
 
 #include <stdio.h>
@@ -28,6 +29,7 @@ int main(int argc, char const *argv[])
 	if ( (pid = fork()) < 0)
 	{
 		perror("fork error");
+		shmctl(shmid, IPC_RMID, NULL);
 		exit(1);
 	}
 
