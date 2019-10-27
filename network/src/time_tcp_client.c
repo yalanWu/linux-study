@@ -5,9 +5,10 @@
 #include <string.h>
 #include <unistd.h>
 #include <netdb.h>
+#include <arpa/inet.h>
 
 #define SERVER_PORT 8888
-#define SERVER_IP 127.0.0.1
+#define SERVER_IP "127.0.0.1"
 
 int main(int argc, char const *argv[])
 {
@@ -25,6 +26,8 @@ int main(int argc, char const *argv[])
 	memset(&serveraddr, 0, sizeof(serveraddr));
 	serveraddr.sin_family = AF_INET;
 	serveraddr.sin_port = htons(SERVER_PORT);
+	//将IP地址转换为网络字节序后填入serveraddr
+	inet_pton(AF_INET, SERVER_IP, &serveraddr.sin_addr.s_addr);
 
 	if(connect(socketfd, (struct sockaddr*)&serveraddr, sizeof(serveraddr)) < 0 )
 	{
