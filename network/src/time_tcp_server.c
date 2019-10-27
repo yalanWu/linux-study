@@ -101,5 +101,6 @@ int main(int argc, char const *argv[])
 	}
 	
 	// 6 close
+	close(socketfd);
 	return 0;
 }
